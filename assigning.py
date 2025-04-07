@@ -64,42 +64,7 @@ def get_available_partner():
             return partner
     return None
 
-# def assign_orders_to_partner(orders):
-#     now = datetime.now()
-#     partner = get_available_partner()
-#     if not partner:
-#         print("❌ No available delivery partners.")
-#         return
 
-#     coords = [(o["lng"], o["lat"]) for o in orders]
-#     try:
-#         route = ors.directions(
-#             coordinates=[(darkstore_coords[1], darkstore_coords[0])] + coords + [(darkstore_coords[1], darkstore_coords[0])],
-#             profile='driving-car',
-#             format='geojson'
-#         )
-#     except Exception as e:
-#         print(f"❌ ORS routing failed: {e}")
-#         return
-
-#     total_duration_sec = route["features"][0]["properties"]["summary"]["duration"]
-#     eta_min = round(total_duration_sec / 60)
-#     return_eta_min = round(eta_min * 0.8)
-#     free_time = now + timedelta(minutes=eta_min + return_eta_min)
-
-#     for order in orders:
-#         row = order["row_index"]
-#         sheet.update_cell(row, 6, "in_transit")
-#         sheet.update_cell(row, 7, f"Partner {partner['id']}")
-#         sheet.update_cell(row, 8, eta_min)
-#         sheet.update_cell(row, 9, return_eta_min)
-
-#         if not order["timestamp"]:
-#             sheet.update_cell(row, 2, now.strftime("%Y-%m-%d %H:%M:%S"))
-
-#     partner["available"] = False
-#     partner["free_at"] = free_time
-#     print(f"✅ Assigned orders {[o['order_id'] for o in orders]} to Partner {partner['id']}")
 def assign_orders_to_partner(orders):
     now = datetime.now()
     partner = get_available_partner()
